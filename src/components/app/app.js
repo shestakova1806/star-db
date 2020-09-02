@@ -9,6 +9,16 @@ import ItemDetails, { Record } from '../item-details/item-details';
 import Row from '../row';
 import SwapiService from '../../services/swapi-service';
 import ErrorBoundry from '../error-boundry';
+import ItemList from '../item-list';
+
+import { 
+    PersonList, 
+    PlanetList, 
+    StarshipList, 
+    PersonDetails, 
+    PlanetDetails, 
+    StarshipDetails 
+} from '../sw-components';
 
 import './app.css';
 
@@ -29,12 +39,6 @@ export default class App extends Component {
         });
     };
 
-    onPersonSelected = (id) => {
-        this.setState({
-            selectedPerson: id
-        })
-    };
-
     componentDidCatch() {
         this.setState({ hasError: true });
     }
@@ -47,52 +51,29 @@ export default class App extends Component {
 
         const planet = this.state.showRandomPlanet ? <RandomPlanet /> : null;
 
-        const { getPerson, getStarship, getPersonImage, getStarshipImage } = this.swapiService;
-
-        const personDetails = (
-            <ItemDetails 
-                itemId={11}
-                getData={getPerson}
-                getImageUrl={getPersonImage}>
-
-                    <Record field="gender" label="Gender" />
-                    <Record field="eyeColor" label="Eye Color" />
-
-            </ItemDetails>
-        );
-
-        const starshipDetails = (
-            <ItemDetails 
-                itemId={5}
-                getData={getStarship}
-                getImageUrl={getStarshipImage}>
-
-                    <Record field="model" label="Model" />
-                    <Record field="length" label="Length" />
-                    <Record field="costInCredits" label="Cost" />
-
-            </ItemDetails>
-        );
-
         return (
         
             <ErrorBoundry>
                 <div className="stardb-app">
                     <Header />
-                    {/* { planet }
 
-                    <button
-                        className="toggle-planet btn btn-warning btn-lg"
-                        onClick={this.toggleRandomPlanet}>
-                        Toggle Random Planet
-                    </button>
+                    <PersonDetails itemId={11} />
 
-                    <ErrorButton />                
-                    <PeoplePage /> */}
+                    <PlanetDetails itemId={5} />
 
-                    <Row 
-                        left={personDetails}
-                        right={starshipDetails} />
+                    <StarshipDetails itemId={9} />
+                    
+                    <PersonList>
+                        { ({name}) => <span>{name}</span> }
+                    </PersonList>
+
+                    <StarshipList>
+                        { ({name}) => <span>{name}</span> }
+                    </StarshipList>
+
+                    <PlanetList>
+                        { ({name}) => <span>{name}</span> }
+                    </PlanetList>
                 </div>
             </ErrorBoundry>
         );

@@ -93,7 +93,7 @@ export default class ItemDetails extends Component {
 
 const ItemDetailsView = ({ item, image, children }) => {
 
-    const { id, name, gender, birthYear, eyeColor } = item;
+    const { name } = item;
 
     return (
         <React.Fragment>
